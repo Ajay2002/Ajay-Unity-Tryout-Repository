@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2894479714830352599}
   - component: {fileID: 2894479714830352598}
-  - component: {fileID: 2894479714830352597}
+  - component: {fileID: 393869098549357076}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2894479716127658186}
-  boxCollider: {fileID: 2894479714830352597}
+  boxCollider: {fileID: 393869098549357076}
   spriteRenderer: {fileID: 2894479716127658185}
   playerMask:
     serializedVersion: 2
@@ -54,7 +54,7 @@ MonoBehaviour:
   patrolSpeed: 0.01
   rightPoint: {x: 1.05, y: 0, z: 0}
   leftPoint: {x: -0.7, y: 0, z: 0}
---- !u!61 &2894479714830352597
+--- !u!61 &393869098549357076
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,7 +67,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00004772283, y: 0.0040599853}
+  m_Offset: {x: 0.000106312335, y: 0.005908206}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -78,7 +78,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.07108921, y: 0.050724477}
+  m_Size: {x: 0.059074715, y: 0.05442092}
   m_EdgeRadius: 0
 --- !u!1 &2894479716127658187
 GameObject:

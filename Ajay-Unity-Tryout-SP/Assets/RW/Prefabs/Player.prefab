@@ -73,6 +73,8 @@ MonoBehaviour:
   soundEffects: {fileID: 636442247}
   groundDetectionDistance: 0.24285714
   jumpDetectionDistance: 0.24285714
+  circleHitRadius: 0.07
+  enemyDetectionDistance: 0.188
 --- !u!50 &6157712441125847574
 Rigidbody2D:
   serializedVersion: 4

@@ -40,7 +40,8 @@ public class CameraFocus : MonoBehaviour
     void Start() 
     {
         //Sets an initial offset between the camera and the player
-        if (player != null) {
+        if (player != null) 
+        {
             initialOffset = transform.position - player.position;
         }
     }
@@ -48,7 +49,8 @@ public class CameraFocus : MonoBehaviour
     void Update() 
     {
         //The offset is maintained every frame
-        if (player != null) {
+        if (player != null) 
+        {
             transform.position = player.position + initialOffset;
         }
     }

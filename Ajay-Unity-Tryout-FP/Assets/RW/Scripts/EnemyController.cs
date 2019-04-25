@@ -53,7 +53,8 @@ public class EnemyController : MonoBehaviour
     private bool completedPath = false;
     private Vector3 currentPoint;
 
-    void Start() {
+    void Start() 
+    {
         gameStarted = true;
         startPoint = transform.position;
         transform.position = startPoint+rightPoint;
@@ -67,6 +68,7 @@ public class EnemyController : MonoBehaviour
             Gizmos.DrawLine(transform.position,transform.position+rightPoint);
             Gizmos.DrawLine(transform.position,transform.position+leftPoint);
         }
+
     }
 
     private void OnCollisionEnter2D (Collision2D col) 
@@ -76,6 +78,7 @@ public class EnemyController : MonoBehaviour
             col.transform.GetComponent<PlayerMove>().Death();
         }
     }
+
 
     public IEnumerator Death() 
     {
@@ -96,7 +99,8 @@ public class EnemyController : MonoBehaviour
         GameObject.Destroy(this.gameObject);
     }
 
-    void Update() {
+    void Update() 
+    {
 
         if (travellingToRightPoint)
         {

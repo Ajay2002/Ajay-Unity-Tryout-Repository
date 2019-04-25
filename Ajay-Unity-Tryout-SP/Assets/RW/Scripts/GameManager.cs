@@ -36,7 +36,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //The UI Text that shows the time elapsed
+    [Header("UI Elements")]
     public Text timerText;
+    public GameObject winningPanel;
+    public Text winningText;
     
     private float timeSinceStart = 0f;
     private bool gameCompleted;
@@ -57,7 +60,9 @@ public class GameManager : MonoBehaviour
     public void GameCompleted() 
     {
         gameCompleted = true;
-        timerText.text = "Completed in : " + Mathf.RoundToInt(timeSinceStart).ToString() + "s"; 
+        timerText.enabled = false;
+        winningPanel.SetActive(true);
+        winningText.text = "Well Done! You Completed in : " + Mathf.RoundToInt(timeSinceStart).ToString() + "s"; 
     }
 
     void Update() {

@@ -48,15 +48,20 @@ public class PlayerMove : MonoBehaviour
     //Distance from the origin of the sprite to the ground, and when it recognises the player as grounded
     public float groundDetectionDistance;
     public float jumpDetectionDistance;
+    public float circleHitRadius;
+    public float enemyDetectionDistance;
 
     private bool jumping;
     private bool highSlopeAngle;
     private Rigidbody2D rigidbodyAttached;
     private Vector3 startPosition;
     private Vector3 startRotation;
+    private bool gameStarted = false;
+    private float notGroundedTimer = 0f;
 
     void Start() 
     {
+        gameStarted = true;
         rigidbodyAttached = GetComponent<Rigidbody2D>();
         //Stores the start position and rotation
         startPosition = transform.position; 
@@ -83,6 +88,17 @@ public class PlayerMove : MonoBehaviour
         soundEffects.PlayerDeathSound();
     }
 
+    void OnDrawGizmos() 
+    {
+        if (!gameStarted) 
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position,circleHitRadius);
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(transform.position,transform.position+Vector3.down*enemyDetectionDistance);
+        }
+    }
+
     void Update() 
     {
         Ray2D r2D = new Ray2D(transform.position,Vector2.down);
@@ -96,9 +112,25 @@ public class PlayerMove : MonoBehaviour
 
         //Initial value of the right direction
         Vector3 rightDirection = transform.right;
+        
+        //Check if there is no ground
+        if (hit2D.collider == null) 
+        {
+            notGroundedTimer += Time.deltaTime;
+
+            //If the player has no ground beneath him for more than 1 second then the player is dead
+            if (notGroundedTimer > 1f) 
+            {
+                Death();
+            }
+
+        }
+
         if (hit2D.collider != null && hit2D.distance <= groundDetectionDistance) 
         {
-            
+            //Reset the not Grounded Timer
+            notGroundedTimer = 0f;
+
             //Angle of the slope
             float ang = Vector3.Angle(hit2D.normal,Vector3.up);
 
@@ -127,13 +159,18 @@ public class PlayerMove : MonoBehaviour
             transform.up = Vector3.Lerp(transform.up,Vector3.up,0.4f);
             animator.SetBool("jumping",true);
         }
+        
+        //Use a circle cast to check if the player is standing on the enemy for more range
+        Ray2D circleRay2D = new Ray2D(transform.position,Vector2.down);
+        RaycastHit2D circleHit2D = new RaycastHit2D();
 
+        circleHit2D = Physics2D.CircleCast(circleRay2D.origin,circleHitRadius,circleRay2D.direction,10,discludePlayerMask);
         //If you are standing on an enemy, kill the enemy
-        if (hit2D.collider != null && hit2D.distance <= groundDetectionDistance+0.13f)
+        if (circleHit2D.collider != null && circleHit2D.distance <= enemyDetectionDistance)
         {
-            if (hit2D.transform.CompareTag("Enemy")) 
+            if (circleHit2D.transform.CompareTag("Enemy")) 
             {
-                hit2D.transform.GetComponent<EnemyController>().StartCoroutine("Death");
+                circleHit2D.transform.GetComponent<EnemyController>().StartCoroutine("Death");
             }
         }
         
